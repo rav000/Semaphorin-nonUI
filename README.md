@@ -33,7 +33,19 @@ Note: This fork has mostly only been tested on Linux. For macOS, try doing the [
 | 11.3        | &#9745;   | &#9745;     | &#9745;   | &#9745; | &#9745;  | &#9744;    | &#9744;    |
 | 12.1        | &#9745;   | &#9745;     | &#9745;   | &#9745; | &#9745;  | &#9744;    | &#9744;    |
 
+for nonUI
+
+| nonUI ver   | based on iOS | ver to put on terminal  | based device    | other devices compatibility |
+|-------------|--------------|-------------------------|-----------------|-----------------------------|
+| 14E61810k   | 10.3         | 10.3k                   | iPad 5th gen    | &#9745;                     |
+| 14F60900i   | 10.3.2       | 10.3.2i                 | iPad 5th gen    | &#9745;                     |
+| 14F60900l   | 10.3.2       | 10.3.2l                 | iPad 5th gen    | &#9745;                     |
+| 15A93720r   | 11.0         | 11.0r                   | iPhone 8        | &#9745;                     |
+| 15A93261h   | 11.0         | 11.0h                   | iPhone 8        | &#9745;                     |
+| 15A23061c   | 11.0         | 11.0c                   | iPhone 8 Plus   | &#9745;                     |
+
 Other iOS versions not listed in the chart may also work but they might have unexpected broken features/jailbreak
+Other nonUI versions will be added
 
 ## How do I use this?
 
@@ -51,7 +63,11 @@ Connect device in DFU mode
 
 `sudo ./semaphorin.sh <the version you are downgrading to> --restore`
 
-For example you may write `sudo ./semaphorin.sh 9.3 --restore`
+or
+
+`sudo ./semaphorin.sh <ver to put on terminal> --restore`
+
+For example you may write `sudo ./semaphorin.sh 9.3 --restore` or `sudo ./semaphorin.sh 11.0r --restore`
 
 The script has to backup important files from your current iOS version before you can downgrade.
 

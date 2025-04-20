@@ -1571,10 +1571,30 @@ _download_clean_boot_files() {
 _download_root_fs() {
     ipswurl=$(curl -k -sL "https://api.ipsw.me/v4/device/$deviceid?type=ipsw" | "$bin"/jq '.firmwares | .[] | select(.version=="'$3'")' | "$bin"/jq -s '.[0] | .url' --raw-output)
     buildid="$3"
-    #if [[ "$3" == "9.3" ]]; then
+    if [[ "$3" == "10.3k" ]]; then
+        ipswurl="https://archive.org/download/Appleinternalfirmwares/iPad6_11_10.3_14E61810k.tar.gz"
+        buildid="14E61810k"
+    fi
+    #if [[ "$3" == "10.3.2i" ]]; then
     #    ipswurl="http://appldnld.apple.com/ios9.3seed/031-51522-20160222-4D0EDA22-D67B-11E5-A9AB-1E6E919DCAD8/iPhone6,1_9.3_13E5214d_Restore.ipsw"
-    #    buildid="13E5214d"
+    #    buildid="14F60900i"
     #fi
+    #if [[ "$3" == "10.3.2l" ]]; then
+    #    ipswurl="http://appldnld.apple.com/ios9.3seed/031-51522-20160222-4D0EDA22-D67B-11E5-A9AB-1E6E919DCAD8/iPhone6,1_9.3_13E5214d_Restore.ipsw"
+    #    buildid="14F60900l"
+    #fi
+    #if [[ "$3" == "11.0r" ]]; then
+    #    ipswurl="http://appldnld.apple.com/ios9.3seed/031-51522-20160222-4D0EDA22-D67B-11E5-A9AB-1E6E919DCAD8/iPhone6,1_9.3_13E5214d_Restore.ipsw"
+    #    buildid="15A93720r"
+    #fi
+    if [[ "$3" == "11.0h" ]]; then
+        ipswurl="https://archive.org/download/Appleinternalfirmwares/iPhone10_1_11.0_15A93261h.tgz"
+        buildid="15A93261h"
+    fi
+    if [[ "$3" == "11.0c" ]]; then
+        ipswurl="https://archive.org/download/Appleinternalfirmwares/iPhone10_1_11.0_15A23061c.tar.gz"
+        buildid="15A23061c"
+    fi
     rm -rf BuildManifest.plist
     mkdir -p "$dir"/$1/$cpid/$3
     rm -rf "$dir"/work
@@ -2919,6 +2939,9 @@ if [[ "$ramdisk" == 1 || "$restore" == 1 || "$dump_blobs" == 1 || "$force_activa
             "$bin"/sshpass -p 'alpine' ssh -o StrictHostKeyChecking=no -p2222 root@localhost "mkdir /mnt5/keybags"
             "$bin"/sshpass -p 'alpine' ssh -o StrictHostKeyChecking=no -p2222 root@localhost "mkdir -p /mnt5/wireless/baseband_data"
             "$bin"/sshpass -p 'alpine' ssh -o StrictHostKeyChecking=no -p2222 root@localhost "mkdir -p /mnt4/private/xarts"
+            if [[ "$version" == "10.3.2l" || "$version" == "10.3.2i" || "$version" == "10.3k" ]]; then
+                "$bin"/sshpass -p 'alpine' ssh -o StrictHostKeyChecking=no -p2222 root@localhost "/sbin/mount_apfs /dev/$systemfs /mnt4"
+                "$bin"/sshpass -p 'alpine' ssh -o StrictHostKeyChecking=no -p2222 root@localhost "/sbin/mount_apfs /dev/$datafs /mnt5"
             if [[ "$version" == "13."* || "$version" == "14."* ]]; then
                 "$bin"/sshpass -p 'alpine' ssh -o StrictHostKeyChecking=no -p2222 root@localhost "mkdir -p /mnt4/private/preboot"
                 "$bin"/sshpass -p 'alpine' ssh -o StrictHostKeyChecking=no -p2222 root@localhost "/sbin/umount /mnt4" 2> /dev/null
